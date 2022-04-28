@@ -1,9 +1,17 @@
-import layout from "../../components/layout.js";
-
 export default function(dependecies){
 
-    //create components
-    return {
+    let runner = {};
 
-    };
+    runner.start = () => {
+
+        let layout = dependecies.layout();
+    
+        let root = dependecies.root();
+    
+        let layoutHtml = layout.toHtmlElement();
+    
+        root.appendChield(layoutHtml);
+    }
+
+    return runner;
 }

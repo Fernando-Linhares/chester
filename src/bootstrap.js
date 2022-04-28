@@ -1,5 +1,6 @@
 import App from './dependencies/application/core.js'
 import config from './config.js'
+import helpers from './dependencies/helpers.js';
 
 export default {
     load(){
@@ -9,6 +10,9 @@ export default {
     },
 
     startApp(dependecies){
-        return  App(dependecies);
+
+       let data =  helpers.hold(dependecies);
+
+        return  App(data);
     }
 };

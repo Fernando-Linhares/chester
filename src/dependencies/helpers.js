@@ -1,3 +1,6 @@
+import config_holder from './holders/config_holder.js';
+import recursiveElementCreator from './recursive.js';
+
 export default {
 
     provider(elementRoot){
@@ -26,8 +29,18 @@ export default {
         }
     },
 
+    addSkills(element){
+
+        recursiveElementCreator(element);
+
+    },
+
     select(id){
         return document.querySelector(id);
     },
+
+    hold(data){
+        return config_holder.build(data)
+    }
 
 }
