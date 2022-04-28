@@ -30,9 +30,7 @@ export default {
     },
 
     addSkills(element){
-
         recursiveElementCreator(element);
-
     },
 
     select(id){

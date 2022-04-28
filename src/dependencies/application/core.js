@@ -5,12 +5,12 @@ export default function(dependecies){
     runner.start = () => {
 
         let layout = dependecies.layout();
-    
+
         let root = dependecies.root();
-    
+
         let layoutHtml = layout.toHtmlElement();
-    
-        root.appendChield(layoutHtml);
+
+        root.appendChild(layoutHtml);
     }
 
     return runner;

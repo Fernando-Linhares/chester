@@ -1,7 +1,3 @@
-export default function (element){
-    return load(element);
-}
-
 /**
  * component actions
  * 
@@ -17,37 +13,45 @@ export default function (element){
  * 
  */
 
-function load(element){
+function load(component){
 
-    let tag = hasTag(element) ? element.tag() : 'div';
+    let tag = hasTag(component) ? component.tag() : 'div';
 
     let html = createElementBy(tag)
 
-    if(hasStyle(element)) addStyle(html, element.style());
+    if(hasStyle(component))
+        addStyle(html, component.style());
 
-    if(hasContent(element)) addContent(html, element.content());
+    if(hasContent(component))
+        addContent(html, component.content());
 
-    if(hasEvent(element)) addEvent(html, element.event());
+    if(hasEvent(component))
+        addEvent(html, component.event());
 
-    if(hasClick(element)) addClick(html, element.click());
+    if(hasClick(component))
+        addClick(html, component.click());
 
-    if(hasId(element)) addId(html, element.id());
+    if(hasId(component))
+        addId(html, component.id());
 
-    if(hasAttr(element)) addAttr(html, element.attribute());
+    if(hasAttr(component))
+        addAttr(html, component.attribute());
 
-    if(hasChildren(element)) addChildren(html, element.children());
+    if(hasChildren(component))
+        addChildren(html, component.children());
 
-    if(hasClass(element)) addClass(html, element.class());
+    if(hasClass(component))
+        addClass(html, component.class());
 
     return html;
 }
 
-function hasId(element) {
-    return element.id() !== null;
+function hasId(element){
+    return hasMethod(element, 'id');
 }
 
 function addId(html, id) {
-    if(typeof id == 'array'){
+    if(Array.isArray(id)){
 
         id.forEach((idName) => addAttr(html, {key:'id', value: idName}));
 
@@ -58,14 +62,40 @@ function addId(html, id) {
 }
 
 function hasClick(element) {
-    return element.click() !== null;
+    return hasMethod(element, 'click');
+}
+
+function isDefined(prop) {
+    return typeof prop !== 'undefined';
+}
+
+function isNotNull(prop){
+    return typeof prop !== null;
+}
+
+function isFunction(prop){
+    return typeof prop === 'function';
+}
+
+function has(prop){
+    return isNotNull(prop) && isDefined(prop);
+}
+
+function hasFunction(prop){
+    return has(prop) && isFunction(prop);
+}
+
+function hasMethod(object, method){
+    return hasFunction(object[method]);
 }
 
 function addClick(element, click){
-    if(typeof click == 'array'){
+    if(Array.isArray(click)){
+
         for(let c of click){
             element.addEventListener("click", c, false);
         }
+
     }else{
 
         element.addEventListener("click", click, false);
@@ -73,14 +103,16 @@ function addClick(element, click){
 }
 
 function hasEvent(element){
-    return element.event() !== null;
+    return hasMethod(element, "event");
 }
 
 function addEvent(element, event){
-    if(typeof event == 'array'){
+    if(Array.isArray(event)){
+
         for(let e of event){
             element.addEventListener("click", e, false);
         }
+
     }else{
 
         element.addEventListener("click", event, false);
@@ -88,27 +120,27 @@ function addEvent(element, event){
 }
 
 function hasAttr(element){
-    return element.attribute() !== null;
+    return hasMethod(element, 'attribute');
 }
 
 function addAttr(html, attr){
+    if(Array.isArray(html)){
 
-    if(typeof attr == 'array'){
         for(let a of attr){
             html.setAttribute(a.key, a.value);
         }
     }else{
 
-        element.setAttribute("click", attr.key,  attr.value);
+        html.setAttribute("click", attr.key,  attr.value);
     }
 }
 
 function hasClass(element){
-    return element.class() != null;
+    return hasMethod(element,'class');
 }
 
 function addClass(html, classname){
-    if(typeof classname == 'array'){
+    if(Array.isArray(classname)){
 
         classname.forEach((name) => addAttr(html, {key:'class', value: name}));
 
@@ -118,14 +150,27 @@ function addClass(html, classname){
     }
 }
 
-
 function addChildren(html, children){
 
-    children = element.children();
+    let elementChildren;
 
-    children = load(children);
+    if(Array.isArray(children)){
 
-    html.appendChild(children);
+        for(let c of children ){
+
+            elementChildren = load(c);
+
+            html.appendChild(elementChildren);
+
+        }
+    }else{
+
+        elementChildren = load(children);
+        
+        html.appendChild(elementChildren);
+    }
+
+    return html;
 }
 
 function createElementBy(discribe){
@@ -133,12 +178,11 @@ function createElementBy(discribe){
 }
 
 function hasTag(element){
-    return element.tag() !== null;
+    return hasMethod(element, 'tag')
 }
 
-
 function hasStyle(component){
-    return component.style() !== null;
+    return hasMethod(component, 'style');
 }
 
 function addStyle(html, style){
@@ -148,6 +192,20 @@ function addStyle(html, style){
 }
 
 function hasChildren(element){
-    return discribe.children() !== null ;
+    return hasMethod(element, 'children');
 }
 
+function hasContent(element){
+    return hasMethod(element, 'content');
+}
+
+function addContent(html, content){
+    html.innerHTML = content;
+}
+
+export default function (element){
+
+    element.toHtmlElement = () => load(element);
+
+    return element;
+}
