@@ -1,34 +1,27 @@
+import Main from './utils/Main.js';
+import Header from './utils/Header.js';
+import Footer from './utils/Footer.js';
+import SideBarLeft from './utils/SideBarLeft.js';
+import SideBarRight from './utils/SideBarRight.js';
+
+/**
+ * Main component. The component that runs application
+ * 
+ * Here must be include all components of application
+ * 
+ * With great power has great reponsabilities
+ * 
+ */
+
 export default {
 
-    content(){
-        return '<h1>ola mundo</h1>'
-    },
-
-    style(){
-        return {
-            backgroundColor: 'blue',
-        }
-    },
-
     children(){
-        return [{
-            content(){
-                return 'filho1';
-            },
-            children(){
-                return {
-                    content(){
-                        return 'filho do filho 1'
-                    }
-                }
-            }
-        },
-        {
-            content(){
-                return 'filho2';
-            }
-        }
-    ]
+        return [
+            Header,
+            SideBarLeft,
+            Main,
+            SideBarRight,
+            Footer
+        ];
     }
-
 }
