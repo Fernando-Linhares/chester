@@ -1,4 +1,5 @@
 export default {
+
     data(){
         return {
             _APP_NAME: 'CHESTER DOCUMENTATION',

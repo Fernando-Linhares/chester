@@ -3,16 +3,6 @@ import recursiveElementCreator from './recursive.js';
 
 export default {
 
-    provider(elementRoot){
-        let element = select(elementRoot);
-
-       if(this.hasAttr(element, 'provider', 'data_provider', 'data', 'service')){
-           return element.getAttribute('provider')
-       }
-
-       throw 'data provider is not defined';
-    },
-
     hasAttr(element, ...attribute){
 
         if(typeof attribute == 'array'){
@@ -23,7 +13,8 @@ export default {
             }
 
             return true;
-        }else{
+        }
+        else{
 
             return element.hasAttribute(attribute);
         }
@@ -39,6 +30,9 @@ export default {
 
     hold(data){
         return config_holder.build(data)
-    }
+    },
 
+    create(tag){
+        document.createElement(tag);
+    }
 }

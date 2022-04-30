@@ -10,6 +10,11 @@ export default function(dependecies){
 
         let layoutHtml = layout.toHtmlElement();
 
+        dependecies.assets();
+
+        dependecies.icons();
+
+
         root.appendChild(layoutHtml);
     }
 

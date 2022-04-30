@@ -3,6 +3,7 @@ import config from './config.js'
 import helpers from './dependencies/helpers.js';
 
 export default {
+
     load(){
         let data = config.data();
 

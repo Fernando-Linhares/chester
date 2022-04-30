@@ -28,6 +28,28 @@ export default {
         return helpers.select(this.getRoot());
     },
 
+    assets(){
+
+        let  assets = helpers.create('link');
+
+        assets.href = this.getAssetsCdn();
+
+        assets.rel = 'stylesheet';
+
+        document.head.appendChild(assets);
+    },
+
+    icons(){
+
+        let  assets = helpers.create('link');
+
+        assets.href = this.getIconsCdn();
+
+        assets.rel = 'stylesheet';
+
+        document.head.appendChild(assets);
+    },
+
     layout(){
 
         helpers.addSkills(layout)
@@ -59,7 +81,7 @@ export default {
         return this._root;
     },
     
-    getAssetCdn(){
+    getAssetsCdn(){
         return this._assetCdn;
     },
     
