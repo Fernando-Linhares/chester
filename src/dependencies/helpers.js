@@ -33,6 +33,6 @@ export default {
     },
 
     create(tag){
-        document.createElement(tag);
+        return document.createElement(tag);
     }
 }

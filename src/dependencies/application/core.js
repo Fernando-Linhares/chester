@@ -14,7 +14,6 @@ export default function(dependecies){
 
         dependecies.icons();
 
-
         root.appendChild(layoutHtml);
     }
 
